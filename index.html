@@ -13,7 +13,17 @@
 
 <div class="preloader" id="preloader">
   <div class="intro-arrow" aria-hidden="true">
-    <svg viewBox="0 0 64 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12H48M36 4l12 8-12 8"/></svg>
+    <svg viewBox="0 0 160 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <defs>
+        <linearGradient id="introArrowGradient" x1="0" y1="12" x2="160" y2="12" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#2563eb"/>
+          <stop offset="38%" stop-color="#7c3aed"/>
+          <stop offset="70%" stop-color="#ec4899"/>
+          <stop offset="100%" stop-color="#ff7a30"/>
+        </linearGradient>
+      </defs>
+      <path d="M2 12H124M110 3l40 9-40 9" stroke="url(#introArrowGradient)" stroke-width="5.5"/>
+    </svg>
   </div>
   <div class="intro-wordmark">
     <div class="logo-mark">BSL</div>
