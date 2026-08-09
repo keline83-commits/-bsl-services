@@ -55,7 +55,7 @@
   const wordmark = document.querySelector(".intro-wordmark");
 
   if (flightPath && arrowhead && !reducedMotion) {
-    const DURATION_MS = 3600;
+    const DURATION_MS = 2900;
     const CENTER_POINT = { x: 700, y: 380 };
     const realLength = flightPath.getTotalLength();
 
@@ -77,9 +77,9 @@
     // arrowhead sit on top of the already-drawn tail instead of the
     // shape sitting entirely in front of it. Shifting the anchor forward
     // along the direction of travel by half the arrowhead's length (its
-    // points span -132 to 132 locally) puts the back edge exactly at the
+    // points span -110 to 110 locally) puts the back edge exactly at the
     // tail's tip instead, so the two connect cleanly with no overlap.
-    const ARROWHEAD_HALF_LENGTH = 132;
+    const ARROWHEAD_HALF_LENGTH = 110;
 
     let centerDistance = 0;
     for (let d = 0; d <= realLength; d += 2) {
