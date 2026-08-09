@@ -11,6 +11,9 @@
   const preloader = document.getElementById("preloader");
   if (preloader) {
     const INTRO_MIN_MS = reducedMotion ? 150 : 3100;
+    // Arrow flight: 2.6s (tail draw + arrowhead motion, in sync).
+    // Wordmark reveal: starts 2.2s in (once the tail's trailing edge
+    // clears the center), 0.45s fade/scale, small hold after.
     let pageLoaded = false;
     let introPlayed = false;
 
@@ -27,6 +30,48 @@
       introPlayed = true;
       revealSite();
     }, INTRO_MIN_MS);
+  }
+
+  /* ---------------------------------------------------------------------
+     Intro arrow: a single flight path (forward -> curve up -> one full
+     loop -> curve down -> exit) drawn as a travelling dash. Both the
+     tail's visible length and the arrowhead's position/rotation are
+     computed every frame from the same progress value, so the tail
+     always bends through the exact curve the arrowhead is tracing and
+     the two can never drift out of sync.
+     --------------------------------------------------------------------- */
+  const flightPath = document.getElementById("introFlightPath");
+  const arrowhead = document.getElementById("introArrowhead");
+
+  if (flightPath && arrowhead && !reducedMotion) {
+    const DURATION_MS = 2600;
+    const TAIL_FRACTION = 0.85;
+    const realLength = flightPath.getTotalLength();
+    const tailLength = TAIL_FRACTION * realLength;
+    const gapLength = realLength + 100;
+
+    arrowhead.style.opacity = "1";
+
+    let start = null;
+
+    function frame(timestamp) {
+      if (start === null) start = timestamp;
+      const elapsed = timestamp - start;
+      const f = Math.min(elapsed / DURATION_MS, 1);
+      const headDistance = f * realLength;
+
+      flightPath.style.strokeDasharray = `${tailLength} ${gapLength}`;
+      flightPath.style.strokeDashoffset = String(tailLength - headDistance);
+
+      const point = flightPath.getPointAtLength(headDistance);
+      const lookahead = flightPath.getPointAtLength(Math.min(headDistance + 2, realLength));
+      const angle = (Math.atan2(lookahead.y - point.y, lookahead.x - point.x) * 180) / Math.PI;
+      arrowhead.setAttribute("transform", `translate(${point.x} ${point.y}) rotate(${angle})`);
+
+      if (f < 1) requestAnimationFrame(frame);
+    }
+
+    requestAnimationFrame(frame);
   }
 
   /* ---------------------------------------------------------------------
