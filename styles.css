@@ -234,55 +234,35 @@ img {
 }
 
 .intro-arrow {
-  --arrow-w: clamp(300px, 46vw, 680px);
   position: absolute;
-  top: 50%;
-  left: calc(var(--arrow-w) * -1);
-  width: var(--arrow-w);
-  height: calc(var(--arrow-w) * 0.15);
-  margin-top: calc(var(--arrow-w) * -0.075);
-  animation:
-    intro-arrow-move 2s linear forwards,
-    intro-arrow-loop 2s cubic-bezier(0.45, 0, 0.4, 1) forwards;
+  inset: 0;
+  pointer-events: none;
 }
 
-.intro-arrow svg {
-  width: 100%;
-  height: 100%;
+.intro-arrow-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(1400px, 92vw);
+  transform: translate(-50%, -50%);
   overflow: visible;
 }
 
-@keyframes intro-arrow-move {
-  0% { left: calc(var(--arrow-w) * -1); opacity: 0; }
-  5% { opacity: 1; }
-  36% { left: 40%; }
-  72% { left: 40%; }
-  96% { opacity: 1; }
-  100% { left: 100%; opacity: 0; }
+/* The tail is drawn once as a fixed path (start -> curve up -> one full
+   loop -> curve down -> exit). Its visible length is revealed with a
+   travelling dash driven from JS (script.js), computed frame-by-frame
+   from the same progress value that positions the arrowhead, so the
+   tail always bends through the exact curve the arrowhead is tracing
+   rather than staying a rigid straight line, and the two can never
+   drift out of sync. */
+.intro-tail {
+  fill: none;
+  stroke-width: 24;
+  stroke-dasharray: 0 9999;
 }
 
-/* Flag-like flutter while flying in and out, with a full vertical
-   loop-the-loop (up, over, back down) while horizontally stationary
-   between 36%-72%, matching the hold in intro-arrow-move. */
-@keyframes intro-arrow-loop {
-  0%   { transform: translateY(0) rotate(0deg); }
-  6%   { transform: translateY(-1.2vh) rotate(-4deg); }
-  12%  { transform: translateY(0.8vh) rotate(3deg); }
-  18%  { transform: translateY(-1vh) rotate(-3deg); }
-  24%  { transform: translateY(0.9vh) rotate(3deg); }
-  30%  { transform: translateY(-0.6vh) rotate(-2deg); }
-  36%  { transform: translateY(0) rotate(0deg); }
-  44%  { transform: translateY(-9vh) rotate(60deg); }
-  52%  { transform: translateY(-19vh) rotate(150deg); }
-  58%  { transform: translateY(-21vh) rotate(200deg); }
-  64%  { transform: translateY(-14vh) rotate(280deg); }
-  70%  { transform: translateY(-3vh) rotate(345deg); }
-  72%  { transform: translateY(0) rotate(360deg); }
-  78%  { transform: translateY(-1vh) rotate(356deg); }
-  84%  { transform: translateY(0.8vh) rotate(363deg); }
-  90%  { transform: translateY(-0.8vh) rotate(357deg); }
-  96%  { transform: translateY(0.5vh) rotate(361deg); }
-  100% { transform: translateY(0) rotate(360deg); }
+#introArrowhead {
+  opacity: 0;
 }
 
 .intro-wordmark {
@@ -293,20 +273,13 @@ img {
   align-items: center;
   gap: 16px;
   opacity: 0;
-  transform: translate(calc(-50% - 42vw), -50%) scale(0.94);
-  animation: intro-wordmark-in 0.85s var(--ease-out) forwards;
-  animation-delay: 1.75s;
+  transform: translate(-50%, -50%) scale(0.94);
+  animation: intro-wordmark-in 0.45s var(--ease-out) forwards;
+  animation-delay: 2.2s;
 }
 
 @keyframes intro-wordmark-in {
-  0% {
-    opacity: 0;
-    transform: translate(calc(-50% - 42vw), -50%) scale(0.94);
-  }
-  30% {
-    opacity: 1;
-  }
-  100% {
+  to {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
@@ -1564,6 +1537,10 @@ img {
 }
 
 @media (max-width: 600px) {
+  .intro-arrow-svg {
+    width: min(1400px, 210vw);
+  }
+
   .brand-name {
     font-size: 21px;
   }
