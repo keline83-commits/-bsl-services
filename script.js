@@ -138,7 +138,7 @@
 
   const submitBtn = document.getElementById("submitBtn");
   const statusEl = document.getElementById("formStatus");
-  const FORM_ENDPOINT = "https://formsubmit.co/ajax/bslservices2012@hotmail.com";
+  const FORM_ENDPOINT = "https://formsubmit.co/ajax/info@bslservicesltd.com";
 
   const fieldOf = (el) => el.closest(".form-field");
 
@@ -259,7 +259,7 @@
       });
     } catch (err) {
       setStatus(
-        "Something went wrong sending your request. Please call us on 07984 495997 or email bslservices2012@hotmail.com directly.",
+        "Something went wrong sending your request. Please call us on 07984 495997 or email info@bslservicesltd.com directly.",
         "error"
       );
     } finally {
