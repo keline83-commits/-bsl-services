@@ -59,6 +59,18 @@
     const CENTER_POINT = { x: 700, y: 380 };
     const realLength = flightPath.getTotalLength();
 
+    // The arrowhead has its own translate/rotate transform, so the tail's
+    // userSpaceOnUse gradient (correct for the untransformed path) would
+    // be reinterpreted in the arrowhead's local space and render the wrong
+    // color. Instead its fill is set directly each frame from the same
+    // blue/orange split, computed by projecting its current point onto the
+    // gradient's own axis so the two always agree on where the line falls.
+    const GRAD_START = { x: 30, y: 380 };
+    const GRAD_END = { x: 1370, y: 370 };
+    const gradDX = GRAD_END.x - GRAD_START.x;
+    const gradDY = GRAD_END.y - GRAD_START.y;
+    const gradLenSq = gradDX * gradDX + gradDY * gradDY;
+
     let centerDistance = 0;
     for (let d = 0; d <= realLength; d += 2) {
       const p = flightPath.getPointAtLength(d);
@@ -90,6 +102,9 @@
       const lookahead = flightPath.getPointAtLength(Math.min(headDistance + 2, realLength));
       const angle = (Math.atan2(lookahead.y - point.y, lookahead.x - point.x) * 180) / Math.PI;
       arrowhead.setAttribute("transform", `translate(${point.x} ${point.y}) rotate(${angle})`);
+
+      const gradT = ((point.x - GRAD_START.x) * gradDX + (point.y - GRAD_START.y) * gradDY) / gradLenSq;
+      arrowhead.style.fill = gradT < 0.5 ? "#2563eb" : "#ff7a30";
 
       if (!revealed && headDistance >= revealDistance && wordmark) {
         revealed = true;
