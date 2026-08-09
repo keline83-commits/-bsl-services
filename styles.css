@@ -257,7 +257,7 @@ img {
    drift out of sync. */
 .intro-tail {
   fill: none;
-  stroke-width: 24;
+  stroke-width: 34;
   stroke-dasharray: 0 9999;
 }
 
@@ -265,6 +265,10 @@ img {
   opacity: 0;
 }
 
+/* Reveal is triggered by JS (script.js) exactly when the tail's
+   trailing edge finishes clearing the center point, rather than a
+   fixed delay, since that moment depends on the actual flight-path
+   geometry. */
 .intro-wordmark {
   position: absolute;
   top: 50%;
@@ -274,8 +278,10 @@ img {
   gap: 16px;
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.94);
+}
+
+.intro-wordmark.reveal {
   animation: intro-wordmark-in 0.45s var(--ease-out) forwards;
-  animation-delay: 2.2s;
 }
 
 @keyframes intro-wordmark-in {
@@ -1537,10 +1543,6 @@ img {
 }
 
 @media (max-width: 600px) {
-  .intro-arrow-svg {
-    width: min(1400px, 210vw);
-  }
-
   .brand-name {
     font-size: 21px;
   }

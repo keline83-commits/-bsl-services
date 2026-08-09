@@ -4,55 +4,78 @@
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------------------------------------------------------------------
-     Preloader — arrow sweep + wordmark reveal, held for a minimum
-     duration so the intro always plays out even on a fast connection,
-     but never blocks longer than the page actually takes to load.
+     Preloader — arrow sweep + wordmark reveal, held until both the
+     intro animation has finished (see below) and the page has actually
+     loaded, so it always plays out fully but never blocks longer than
+     the page needs.
      --------------------------------------------------------------------- */
   const preloader = document.getElementById("preloader");
+  let pageLoaded = false;
+  let introPlayed = false;
+
+  const revealSite = () => {
+    if (preloader && pageLoaded && introPlayed) preloader.classList.add("hidden");
+  };
+
   if (preloader) {
-    const INTRO_MIN_MS = reducedMotion ? 150 : 3100;
-    // Arrow flight: 2.6s (tail draw + arrowhead motion, in sync).
-    // Wordmark reveal: starts 2.2s in (once the tail's trailing edge
-    // clears the center), 0.45s fade/scale, small hold after.
-    let pageLoaded = false;
-    let introPlayed = false;
-
-    const revealSite = () => {
-      if (pageLoaded && introPlayed) preloader.classList.add("hidden");
-    };
-
     window.addEventListener("load", () => {
       pageLoaded = true;
       revealSite();
     });
 
-    setTimeout(() => {
-      introPlayed = true;
-      revealSite();
-    }, INTRO_MIN_MS);
+    if (reducedMotion) {
+      setTimeout(() => {
+        introPlayed = true;
+        revealSite();
+      }, 150);
+    }
   }
 
   /* ---------------------------------------------------------------------
-     Intro arrow: a single flight path (forward -> curve up -> one full
-     loop -> curve down -> exit) drawn as a travelling dash. Both the
-     tail's visible length and the arrowhead's position/rotation are
+     Intro arrow: a single flight path (far left -> curve up -> one full
+     loop -> curve down -> far right) drawn as a travelling dash. Both
+     the tail's visible length and the arrowhead's position/rotation are
      computed every frame from the same progress value, so the tail
      always bends through the exact curve the arrowhead is tracing and
      the two can never drift out of sync.
+
+     The wordmark sits at the fixed viewport center, which corresponds
+     to the loop's bottom point on the path (where it enters and exits
+     the loop). Rather than hardcode that as a distance along the path
+     — which would break the moment the geometry changes — it's found
+     by scanning the path for the last point close to that coordinate.
+     The tail is sized relative to how much path remains after that
+     point, so however long the path turns out to be, the wordmark
+     stays covered until the tail's trailing edge finally clears it
+     near the end of the flight, with a little breathing room before
+     the animation completes.
      --------------------------------------------------------------------- */
   const flightPath = document.getElementById("introFlightPath");
   const arrowhead = document.getElementById("introArrowhead");
+  const wordmark = document.querySelector(".intro-wordmark");
 
   if (flightPath && arrowhead && !reducedMotion) {
-    const DURATION_MS = 2600;
-    const TAIL_FRACTION = 0.85;
+    const DURATION_MS = 3600;
+    const CENTER_POINT = { x: 700, y: 380 };
     const realLength = flightPath.getTotalLength();
-    const tailLength = TAIL_FRACTION * realLength;
+
+    let centerDistance = 0;
+    for (let d = 0; d <= realLength; d += 2) {
+      const p = flightPath.getPointAtLength(d);
+      if (Math.hypot(p.x - CENTER_POINT.x, p.y - CENTER_POINT.y) < 4) {
+        centerDistance = d;
+      }
+    }
+
+    const remainingAfterCenter = realLength - centerDistance;
+    const tailLength = Math.max(200, remainingAfterCenter * 0.8);
     const gapLength = realLength + 100;
+    const revealDistance = centerDistance + tailLength;
 
     arrowhead.style.opacity = "1";
 
     let start = null;
+    let revealed = false;
 
     function frame(timestamp) {
       if (start === null) start = timestamp;
@@ -68,7 +91,19 @@
       const angle = (Math.atan2(lookahead.y - point.y, lookahead.x - point.x) * 180) / Math.PI;
       arrowhead.setAttribute("transform", `translate(${point.x} ${point.y}) rotate(${angle})`);
 
-      if (f < 1) requestAnimationFrame(frame);
+      if (!revealed && headDistance >= revealDistance && wordmark) {
+        revealed = true;
+        wordmark.classList.add("reveal");
+      }
+
+      if (f < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        setTimeout(() => {
+          introPlayed = true;
+          revealSite();
+        }, 500);
+      }
     }
 
     requestAnimationFrame(frame);
