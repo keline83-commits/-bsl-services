@@ -10,7 +10,7 @@
      --------------------------------------------------------------------- */
   const preloader = document.getElementById("preloader");
   if (preloader) {
-    const INTRO_MIN_MS = reducedMotion ? 150 : 2750;
+    const INTRO_MIN_MS = reducedMotion ? 150 : 2650;
     let pageLoaded = false;
     let introPlayed = false;
 
