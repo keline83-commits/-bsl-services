@@ -71,6 +71,16 @@
     const gradDY = GRAD_END.y - GRAD_START.y;
     const gradLenSq = gradDX * gradDX + gradDY * gradDY;
 
+    // The arrowhead polygon is anchored at its own local (0,0), which is
+    // its horizontal center, not its back edge — placing that center
+    // directly on the tail's current tip made the back half of the
+    // arrowhead sit on top of the already-drawn tail instead of the
+    // shape sitting entirely in front of it. Shifting the anchor forward
+    // along the direction of travel by half the arrowhead's length (its
+    // points span -132 to 132 locally) puts the back edge exactly at the
+    // tail's tip instead, so the two connect cleanly with no overlap.
+    const ARROWHEAD_HALF_LENGTH = 132;
+
     let centerDistance = 0;
     for (let d = 0; d <= realLength; d += 2) {
       const p = flightPath.getPointAtLength(d);
@@ -100,8 +110,11 @@
 
       const point = flightPath.getPointAtLength(headDistance);
       const lookahead = flightPath.getPointAtLength(Math.min(headDistance + 2, realLength));
-      const angle = (Math.atan2(lookahead.y - point.y, lookahead.x - point.x) * 180) / Math.PI;
-      arrowhead.setAttribute("transform", `translate(${point.x} ${point.y}) rotate(${angle})`);
+      const angleRad = Math.atan2(lookahead.y - point.y, lookahead.x - point.x);
+      const angle = (angleRad * 180) / Math.PI;
+      const anchorX = point.x + Math.cos(angleRad) * ARROWHEAD_HALF_LENGTH;
+      const anchorY = point.y + Math.sin(angleRad) * ARROWHEAD_HALF_LENGTH;
+      arrowhead.setAttribute("transform", `translate(${anchorX} ${anchorY}) rotate(${angle})`);
 
       const gradT = ((point.x - GRAD_START.x) * gradDX + (point.y - GRAD_START.y) * gradDY) / gradLenSq;
       arrowhead.style.fill = gradT < 0.5 ? "#2563eb" : "#ff7a30";

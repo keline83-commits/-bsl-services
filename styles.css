@@ -257,7 +257,7 @@ img {
    drift out of sync. */
 .intro-tail {
   fill: none;
-  stroke-width: 64;
+  stroke-width: 128;
   stroke-dasharray: 0 9999;
 }
 
