@@ -217,8 +217,7 @@ img {
   position: fixed;
   inset: 0;
   z-index: 999;
-  display: grid;
-  place-items: center;
+  overflow: hidden;
   background: var(--bg);
   transition: opacity 0.5s var(--ease-out), visibility 0.5s;
 }
@@ -229,22 +228,87 @@ img {
   pointer-events: none;
 }
 
-.preloader-mark {
-  width: 64px;
-  height: 64px;
-  border-radius: 18px;
-  display: grid;
-  place-items: center;
-  font-weight: 900;
-  color: var(--bg);
-  background: var(--gradient-main);
-  animation: pulse-scale 1.1s ease-in-out infinite;
-  box-shadow: var(--glow-violet);
-}
-
 @keyframes pulse-scale {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.12); }
+}
+
+.intro-arrow {
+  position: absolute;
+  top: 50%;
+  left: -84px;
+  width: 84px;
+  height: 84px;
+  margin-top: -42px;
+  color: var(--cyan);
+  animation:
+    intro-arrow-move 1.15s linear forwards,
+    intro-arrow-color 1.15s linear forwards;
+}
+
+.intro-arrow svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes intro-arrow-move {
+  0% { left: -84px; opacity: 0; }
+  6% { opacity: 1; }
+  94% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+@keyframes intro-arrow-color {
+  0% { color: #2563eb; }
+  35% { color: #7c3aed; }
+  65% { color: #ec4899; }
+  100% { color: #ff7a30; }
+}
+
+.intro-wordmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  transform: translate(-50%, calc(-50% + 16px)) scale(0.96);
+  animation: intro-wordmark-in 0.6s var(--ease-out) forwards;
+  animation-delay: 1.2s;
+}
+
+@keyframes intro-wordmark-in {
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.intro-wordmark .logo-mark {
+  width: 62px;
+  height: 62px;
+  font-size: 17px;
+  border-radius: 17px;
+}
+
+.intro-name {
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  line-height: 0.9;
+}
+
+.intro-sub {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 5px;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* ==========================================================================

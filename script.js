@@ -4,12 +4,30 @@
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------------------------------------------------------------------
-     Preloader
+     Preloader — arrow sweep + wordmark reveal, held for a minimum
+     duration so the intro always plays out even on a fast connection,
+     but never blocks longer than the page actually takes to load.
      --------------------------------------------------------------------- */
   const preloader = document.getElementById("preloader");
-  window.addEventListener("load", () => {
-    setTimeout(() => preloader && preloader.classList.add("hidden"), reducedMotion ? 0 : 350);
-  });
+  if (preloader) {
+    const INTRO_MIN_MS = reducedMotion ? 150 : 2500;
+    let pageLoaded = false;
+    let introPlayed = false;
+
+    const revealSite = () => {
+      if (pageLoaded && introPlayed) preloader.classList.add("hidden");
+    };
+
+    window.addEventListener("load", () => {
+      pageLoaded = true;
+      revealSite();
+    });
+
+    setTimeout(() => {
+      introPlayed = true;
+      revealSite();
+    }, INTRO_MIN_MS);
+  }
 
   /* ---------------------------------------------------------------------
      Footer year
