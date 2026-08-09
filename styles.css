@@ -234,13 +234,13 @@ img {
 }
 
 .intro-arrow {
-  --arrow-size: clamp(120px, 16vw, 220px);
+  --arrow-w: clamp(220px, 32vw, 460px);
   position: absolute;
   top: 50%;
-  left: calc(var(--arrow-size) * -1);
-  width: var(--arrow-size);
-  height: var(--arrow-size);
-  margin-top: calc(var(--arrow-size) / -2);
+  left: calc(var(--arrow-w) * -1);
+  width: var(--arrow-w);
+  height: calc(var(--arrow-w) * 0.375);
+  margin-top: calc(var(--arrow-w) * -0.1875);
   color: var(--cyan);
   animation:
     intro-arrow-move 1.5s linear forwards,
@@ -254,7 +254,7 @@ img {
 }
 
 @keyframes intro-arrow-move {
-  0% { left: calc(var(--arrow-size) * -1); opacity: 0; }
+  0% { left: calc(var(--arrow-w) * -1); opacity: 0; }
   6% { opacity: 1; }
   94% { opacity: 1; }
   100% { left: 100%; opacity: 0; }
@@ -281,13 +281,20 @@ img {
   align-items: center;
   gap: 16px;
   opacity: 0;
-  transform: translate(-50%, calc(-50% + 16px)) scale(0.96);
-  animation: intro-wordmark-in 0.6s var(--ease-out) forwards;
-  animation-delay: 1.55s;
+  transform: translate(calc(-50% - 42vw), -50%) scale(0.94);
+  animation: intro-wordmark-in 0.85s var(--ease-out) forwards;
+  animation-delay: 1.25s;
 }
 
 @keyframes intro-wordmark-in {
-  to {
+  0% {
+    opacity: 0;
+    transform: translate(calc(-50% - 42vw), -50%) scale(0.94);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
