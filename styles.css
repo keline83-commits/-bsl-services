@@ -833,6 +833,55 @@ img {
 }
 
 /* ==========================================================================
+   RECENT WORK
+   ========================================================================== */
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 26px;
+}
+
+.work-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s;
+}
+
+.work-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-lift);
+}
+
+.work-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.work-caption {
+  padding: 26px 28px 30px;
+}
+
+.work-caption strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.work-caption p {
+  color: var(--text-dim);
+  margin: 0;
+  font-size: 14.5px;
+}
+
+/* ==========================================================================
    ABOUT
    ========================================================================== */
 
@@ -1396,6 +1445,10 @@ img {
 
   .services-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .work-grid {
+    grid-template-columns: 1fr;
   }
 
   .about {
