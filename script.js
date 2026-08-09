@@ -99,10 +99,21 @@
       if (f < 1) {
         requestAnimationFrame(frame);
       } else {
+        // Flight is done — fade the arrow itself out, then hold on the
+        // revealed wordmark for 1.5s before letting the site appear.
+        const arrowLayer = document.querySelector(".intro-arrow");
+        const FADE_MS = 500;
+        const HOLD_MS = 1500;
+        if (arrowLayer) {
+          arrowLayer.style.transition = `opacity ${FADE_MS}ms ease`;
+          arrowLayer.style.opacity = "0";
+        }
         setTimeout(() => {
-          introPlayed = true;
-          revealSite();
-        }, 500);
+          setTimeout(() => {
+            introPlayed = true;
+            revealSite();
+          }, HOLD_MS);
+        }, FADE_MS);
       }
     }
 
