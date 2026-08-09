@@ -3,12 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="BSL Services - professional cleaning and property services across London.">
+  <meta name="description" content="BSL Services - professional cleaning and property services across London. Request a free quote online in seconds.">
   <title>BSL Services | Cleaning & Property Services</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%232be3ff'/%3E%3Cstop offset='55%25' stop-color='%238b5cf6'/%3E%3Cstop offset='100%25' stop-color='%23ff4dd8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='24' height='24' rx='6' fill='%2305060a'/%3E%3Cpath d='M12 3l1.8 5.6L19 10.5l-5.2 1.9L12 18l-1.8-5.6L5 10.5l5.2-1.9z' fill='url(%23g)'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-mark">BSL</div>
+</div>
+
+<div class="bg-fx" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="grid"></div>
+  <div class="noise"></div>
+</div>
+
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
 <header class="header">
   <a class="brand" href="#home">
@@ -19,12 +34,13 @@
     </div>
   </a>
 
-  <button class="menu-toggle" aria-label="Open menu">☰</button>
+  <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
 
   <nav class="nav">
     <a href="#home">Home</a>
     <a href="#services">Services</a>
     <a href="#about">About</a>
+    <a href="#request">Get a Quote</a>
     <a href="#contact">Contact</a>
   </nav>
 
@@ -37,7 +53,7 @@
 
 <section id="home" class="hero">
 
-  <div class="hero-content">
+  <div class="hero-content" data-animate="left">
     <div class="eyebrow">PROFESSIONAL PROPERTY SERVICES</div>
 
     <h1>Making your space feel <span>brand new.</span></h1>
@@ -48,107 +64,162 @@
     </p>
 
     <div class="buttons">
-      <a class="button primary" href="tel:07984495997">
+      <a class="button primary" href="#request">
         Get a Free Quote →
       </a>
 
       <a class="button outline"
          href="https://wa.me/447984495997"
-         target="_blank">
+         target="_blank" rel="noopener">
         WhatsApp Us
       </a>
     </div>
 
     <div class="trust">
-      <div>✓ Professional service</div>
-      <div>✓ Reliable & friendly</div>
-      <div>✓ London-wide service</div>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
+        Professional service
+      </div>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
+        Reliable &amp; friendly
+      </div>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
+        London-wide service
+      </div>
     </div>
   </div>
 
-  <div class="hero-image">
-    <div class="image-overlay"></div>
+  <div class="hero-graphic" data-animate="scale">
+    <div class="orbit-ring r1"></div>
+    <div class="orbit-ring r2"></div>
+    <div class="orbit-ring r3"></div>
 
-    <div class="image-card">
-      <strong>BSL SERVICES</strong>
-      <span>Clean spaces. Better places.</span>
+    <div class="orbit-core">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.8L21 11l-6.8 2.2L12 20l-2.2-6.8L3 11l6.8-2.2z"/></svg>
+    </div>
+
+    <div class="orbit-chip c1">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7s6 6.6 6 11.1a6 6 0 1 1-12 0c0-4.5 6-11.1 6-11.1z"/></svg>
+    </div>
+    <div class="orbit-chip c2">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l4-4M7 21l10-10 3 3-10 10zM14 7l3-3 3 3-3 3z"/></svg>
+    </div>
+    <div class="orbit-chip c3">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+    </div>
+    <div class="orbit-chip c4">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.8L21 11l-6.8 2.2L12 20l-2.2-6.8L3 11l6.8-2.2z"/></svg>
     </div>
   </div>
 
 </section>
 
 
-<section class="contact-strip">
+<section class="contact-strip" data-animate="fade">
   <div>
-    <strong>📍 SERVICE AREA</strong>
-    <span>Central London & Greater London</span>
+    <div class="strip-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+    </div>
+    <div>
+      <strong>SERVICE AREA</strong>
+      <span>Central London &amp; Greater London</span>
+    </div>
   </div>
 
   <div>
-    <strong>☎ CALL US</strong>
-    <span>07984 495997</span>
+    <div class="strip-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2.2z"/></svg>
+    </div>
+    <div>
+      <strong>CALL US</strong>
+      <span>07984 495997</span>
+    </div>
   </div>
 
   <div>
-    <strong>✉ EMAIL</strong>
-    <span>bslservices2012@hotmail.com</span>
+    <div class="strip-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+    </div>
+    <div>
+      <strong>EMAIL</strong>
+      <span>bslservices2012@hotmail.com</span>
+    </div>
   </div>
 
   <div>
-    <strong>🕒 APPOINTMENTS</strong>
-    <span>Available by appointment</span>
+    <div class="strip-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+    </div>
+    <div>
+      <strong>APPOINTMENTS</strong>
+      <span>Available by appointment</span>
+    </div>
   </div>
 </section>
 
 
 <section id="services" class="section">
 
-  <div class="section-heading">
+  <div class="section-heading" data-animate="fade">
     <div class="eyebrow">WHAT WE DO</div>
     <h2>Our Services</h2>
     <p>Professional solutions for your home or property.</p>
   </div>
 
-  <div class="services-grid">
+  <div class="services-grid stagger">
 
-    <article class="service-card">
+    <article class="service-card" data-animate="scale" style="--i:0">
       <div class="service-number">01</div>
-      <div class="service-icon">✦</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.6 4.9L18 8.5l-4.4 1.6L12 15l-1.6-4.9L6 8.5l4.4-1.6z"/><path d="M19 15l.8 2.4L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.6z"/></svg>
+      </div>
       <h3>Deep Cleaning</h3>
       <p>Thorough cleaning for homes, properties and other spaces.</p>
     </article>
 
-    <article class="service-card">
+    <article class="service-card" data-animate="scale" style="--i:1">
       <div class="service-number">02</div>
-      <div class="service-icon">▰</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 10v9M13 10v9"/></svg>
+      </div>
       <h3>Carpet Cleaning</h3>
       <p>Refresh carpets and remove everyday dirt and marks.</p>
     </article>
 
-    <article class="service-card">
+    <article class="service-card" data-animate="scale" style="--i:2">
       <div class="service-number">03</div>
-      <div class="service-icon">▣</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12V9a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3"/><path d="M3 12h18v4a1 1 0 0 1-1 1h-1v2h-2v-2H7v2H5v-2H4a1 1 0 0 1-1-1z"/></svg>
+      </div>
       <h3>Upholstery Cleaning</h3>
       <p>Professional care for sofas, chairs and fabric furnishings.</p>
     </article>
 
-    <article class="service-card">
+    <article class="service-card" data-animate="scale" style="--i:3">
       <div class="service-number">04</div>
-      <div class="service-icon">◒</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="12" height="6" rx="1"/><path d="M7 10v4a2 2 0 0 0 2 2h1v4"/></svg>
+      </div>
       <h3>Decorating</h3>
       <p>Painting and decorating to give your property a fresh look.</p>
     </article>
 
-    <article class="service-card">
+    <article class="service-card" data-animate="scale" style="--i:4">
       <div class="service-number">05</div>
-      <div class="service-icon">⌂</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+      </div>
       <h3>End of Tenancy</h3>
       <p>Cleaning support when moving into or leaving a property.</p>
     </article>
 
-    <article class="service-card">
+    <article class="service-card" data-animate="scale" style="--i:5">
       <div class="service-number">06</div>
-      <div class="service-icon">+</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      </div>
       <h3>And More</h3>
       <p>Ask us about other cleaning and property services.</p>
     </article>
@@ -159,9 +230,26 @@
 
 <section id="about" class="about">
 
-  <div class="about-image"></div>
+  <div class="about-visual" data-animate="left">
+    <div class="scan"></div>
+    <div class="rings">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor">
+        <circle cx="50" cy="50" r="46" stroke-width="1" opacity="0.35"/>
+        <circle cx="50" cy="50" r="34" stroke-width="1" opacity="0.5"/>
+        <circle cx="50" cy="50" r="22" stroke-width="1.5"/>
+        <path d="M50 4v14M50 82v14M4 50h14M82 50h14" stroke-width="1" opacity="0.4"/>
+      </svg>
+    </div>
+    <div class="about-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+      <div>
+        <strong>Trusted &amp; reliable</strong>
+        <span>Clear communication, every job</span>
+      </div>
+    </div>
+  </div>
 
-  <div class="about-content">
+  <div class="about-content" data-animate="right">
     <div class="eyebrow">WHY BSL SERVICES</div>
 
     <h2>Professional service. Beautiful results.</h2>
@@ -176,9 +264,168 @@
       property look its best.
     </p>
 
-    <a class="button primary" href="#contact">
+    <div class="about-chips">
+      <span>Fully insured</span>
+      <span>Flexible scheduling</span>
+      <span>Free, no-obligation quotes</span>
+    </div>
+
+    <a class="button primary" href="#request">
       Request a Quote →
     </a>
+  </div>
+
+</section>
+
+
+<section id="request" class="request-section">
+
+  <div class="section-heading" data-animate="fade">
+    <div class="eyebrow">FREE QUOTE REQUEST</div>
+    <h2>Tell us about your property</h2>
+    <p>Fill in the details below and we'll get back to you with a tailored quote.</p>
+  </div>
+
+  <div class="request-shell" data-animate="scale">
+    <form id="quoteForm" novalidate>
+
+      <div class="form-grid">
+
+        <div class="form-field">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" name="name" placeholder="Jane Smith" autocomplete="name" required>
+          <span class="field-error">Please enter your name.</span>
+        </div>
+
+        <div class="form-field">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="07984 495997" autocomplete="tel" required>
+          <span class="field-error">Please enter a contact number.</span>
+        </div>
+
+        <div class="form-field full">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+          <span class="field-error">Please enter a valid email address.</span>
+        </div>
+
+        <div class="form-field full">
+          <label>Property Type</label>
+          <div class="pill-group" id="propertyTypeGroup">
+            <label class="pill-check">
+              <input type="radio" name="property_type" value="House" required>
+              <span>House</span>
+            </label>
+            <label class="pill-check">
+              <input type="radio" name="property_type" value="Flat / Apartment">
+              <span>Flat / Apartment</span>
+            </label>
+            <label class="pill-check">
+              <input type="radio" name="property_type" value="Studio">
+              <span>Studio</span>
+            </label>
+            <label class="pill-check">
+              <input type="radio" name="property_type" value="Maisonette">
+              <span>Maisonette</span>
+            </label>
+            <label class="pill-check">
+              <input type="radio" name="property_type" value="Office / Commercial">
+              <span>Office / Commercial</span>
+            </label>
+            <label class="pill-check">
+              <input type="radio" name="property_type" value="Other">
+              <span>Other</span>
+            </label>
+          </div>
+          <span class="field-error">Please select a property type.</span>
+        </div>
+
+        <div class="form-field">
+          <label>Bedrooms</label>
+          <div class="stepper" data-stepper data-min="0" data-max="10">
+            <button type="button" class="stepper-btn" data-action="dec" aria-label="Decrease bedrooms">−</button>
+            <input type="text" inputmode="numeric" name="bedrooms" value="1" readonly aria-label="Number of bedrooms">
+            <button type="button" class="stepper-btn" data-action="inc" aria-label="Increase bedrooms">+</button>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Bathrooms</label>
+          <div class="stepper" data-stepper data-min="0" data-max="10">
+            <button type="button" class="stepper-btn" data-action="dec" aria-label="Decrease bathrooms">−</button>
+            <input type="text" inputmode="numeric" name="bathrooms" value="1" readonly aria-label="Number of bathrooms">
+            <button type="button" class="stepper-btn" data-action="inc" aria-label="Increase bathrooms">+</button>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Kitchens</label>
+          <div class="stepper" data-stepper data-min="0" data-max="5">
+            <button type="button" class="stepper-btn" data-action="dec" aria-label="Decrease kitchens">−</button>
+            <input type="text" inputmode="numeric" name="kitchens" value="1" readonly aria-label="Number of kitchens">
+            <button type="button" class="stepper-btn" data-action="inc" aria-label="Increase kitchens">+</button>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="preferredDate">Preferred Date <span class="hint">(optional)</span></label>
+          <input type="date" id="preferredDate" name="preferred_date">
+        </div>
+
+        <div class="form-field full">
+          <label>Services Needed</label>
+          <div class="pill-group" id="servicesGroup">
+            <label class="pill-check">
+              <input type="checkbox" name="services" value="Deep Cleaning">
+              <span>Deep Cleaning</span>
+            </label>
+            <label class="pill-check">
+              <input type="checkbox" name="services" value="Carpet Cleaning">
+              <span>Carpet Cleaning</span>
+            </label>
+            <label class="pill-check">
+              <input type="checkbox" name="services" value="Upholstery Cleaning">
+              <span>Upholstery Cleaning</span>
+            </label>
+            <label class="pill-check">
+              <input type="checkbox" name="services" value="Decorating">
+              <span>Decorating</span>
+            </label>
+            <label class="pill-check">
+              <input type="checkbox" name="services" value="End of Tenancy Cleaning">
+              <span>End of Tenancy Cleaning</span>
+            </label>
+            <label class="pill-check">
+              <input type="checkbox" name="services" value="Other">
+              <span>Other</span>
+            </label>
+          </div>
+          <span class="field-error">Please select at least one service.</span>
+        </div>
+
+        <div class="form-field full">
+          <label for="notes">Additional Details <span class="hint">(optional)</span></label>
+          <textarea id="notes" name="notes" placeholder="Anything else we should know? e.g. parking, pets, access, stairs..."></textarea>
+        </div>
+
+        <div class="hp-field">
+          <label for="hpField">Leave this field empty</label>
+          <input type="text" id="hpField" name="_honeypot" tabindex="-1" autocomplete="off">
+        </div>
+
+      </div>
+
+      <div class="form-footer">
+        <p>We'll never share your details. You'll usually hear back from us within one working day.</p>
+        <button type="submit" class="button primary block" id="submitBtn" style="max-width:260px">
+          <span class="spinner"></span>
+          <span class="btn-label">Send Quote Request →</span>
+        </button>
+      </div>
+
+      <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+
+    </form>
   </div>
 
 </section>
@@ -206,7 +453,7 @@
 
     <a class="button white"
        href="https://wa.me/447984495997"
-       target="_blank">
+       target="_blank" rel="noopener">
       WhatsApp
     </a>
   </div>
@@ -219,8 +466,11 @@
 <footer class="footer">
 
   <div>
-    <div class="footer-brand">BSL SERVICES</div>
-    <p>Cleaning & property services across London.</p>
+    <div class="footer-brand">
+      <div class="logo-mark">BSL</div>
+      BSL SERVICES
+    </div>
+    <p>Cleaning &amp; property services across London.</p>
   </div>
 
   <div>
@@ -235,26 +485,20 @@
 
   <div>
     <strong>SERVICE AREA</strong>
-    <p>Central London & Greater London</p>
+    <p>Central London &amp; Greater London</p>
   </div>
 
 </footer>
 
+<div class="footer-bottom">
+  &copy; <span id="year"></span> BSL Services. All rights reserved.
+</div>
 
-<script>
-const toggle = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.nav');
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
 
-toggle.addEventListener('click', () => {
-  nav.classList.toggle('open');
-});
-
-document.querySelectorAll('.nav a').forEach(link => {
-  link.addEventListener('click', () => {
-    nav.classList.remove('open');
-  });
-});
-</script>
+<script src="script.js" defer></script>
 
 </body>
 </html>
