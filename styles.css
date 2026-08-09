@@ -234,16 +234,18 @@ img {
 }
 
 .intro-arrow {
+  --arrow-size: clamp(120px, 16vw, 220px);
   position: absolute;
   top: 50%;
-  left: -84px;
-  width: 84px;
-  height: 84px;
-  margin-top: -42px;
+  left: calc(var(--arrow-size) * -1);
+  width: var(--arrow-size);
+  height: var(--arrow-size);
+  margin-top: calc(var(--arrow-size) / -2);
   color: var(--cyan);
   animation:
-    intro-arrow-move 1.15s linear forwards,
-    intro-arrow-color 1.15s linear forwards;
+    intro-arrow-move 1.5s linear forwards,
+    intro-arrow-color 1.5s linear forwards,
+    intro-arrow-loop 1.5s cubic-bezier(0.45, 0, 0.55, 1) forwards;
 }
 
 .intro-arrow svg {
@@ -252,10 +254,16 @@ img {
 }
 
 @keyframes intro-arrow-move {
-  0% { left: -84px; opacity: 0; }
+  0% { left: calc(var(--arrow-size) * -1); opacity: 0; }
   6% { opacity: 1; }
   94% { opacity: 1; }
   100% { left: 100%; opacity: 0; }
+}
+
+@keyframes intro-arrow-loop {
+  0%, 52% { transform: rotate(0deg); }
+  82% { transform: rotate(360deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @keyframes intro-arrow-color {
@@ -275,7 +283,7 @@ img {
   opacity: 0;
   transform: translate(-50%, calc(-50% + 16px)) scale(0.96);
   animation: intro-wordmark-in 0.6s var(--ease-out) forwards;
-  animation-delay: 1.2s;
+  animation-delay: 1.55s;
 }
 
 @keyframes intro-wordmark-in {
